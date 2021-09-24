@@ -7,19 +7,6 @@ output: github_document
 
 
 ## Problem 1
-This problem is intended to emphasize variable types and introduce coercion; some awareness of how R treats numeric, character, and factor variables is necessary for working with these data types in practice.
-
-Create a data frame comprised of:
-
-a random sample of size 10 from a standard Normal distribution
-a logical vector indicating whether elements of the sample are greater than 0
-a character vector of length 10
-a factor vector of length 10, with 3 different factor “levels”
-Try to take the mean of each variable in your dataframe. What works and what doesn’t?
-
-Hint: to take the mean of a variable in a dataframe, you need to pull the variable out of the dataframe. Try loading the tidyverse and using the pull function.
-
-In some cases, you can explicitly convert variables from one type to another. Write a code chunk that applies the as.numeric function to the logical, character, and factor variables (please show this chunk but not the output). What happens, and why? Does this help explain what happens when you try to take the mean?
 
 1. I am trying to create a dataframe as request.
 
@@ -38,37 +25,76 @@ I have created a dataframe with a random sample, a logical vector, a character v
 
 2. I am trying to take the mean of each variable in your dataframe.
 
-a) for the mean of random norm sample.
+- for the mean of random norm sample.
 ```{r}
-median_norm = median(pull(create_df, norm_samp))
+mean_norm = mean(pull(create_df, norm_samp))
 ```
 
-It works! It is `r median_norm`
+It works! It is `r mean_norm`
 
-b) for the mean of logical vector.
+- for the mean of logical vector.
 ```{r}
-median_log = median(pull(create_df, logical_vec))
+mean_log = mean(pull(create_df, logical_vec))
 ```
 
-It works! It is `r median_log`
+It works! It is `r mean_log`
 
-c) for the mean of character vector.
+- for the mean of character vector.
 ```{r}
-median_char = median(pull(create_df, char_vec))
+mean_char = mean(pull(create_df, char_vec))
 ```
 
 It does not work.
 
-d) for the mean of factor vector.
+- for the mean of factor vector.
 ```{r}
-median_factor = median(pull(create_df, factor_vec))
+mean_factor = mean(pull(create_df, factor_vec))
 ```
 
 It does not work.
 
 3. I am trying to use as.numeric function on the logical, character, and factor variables.
-```{r}
+```{r eval = FALSE}
+numeric_logical = as.numeric(pull(create_df, logical_vec))
+numeric_char = as.numeric(pull(create_df, char_vec))
+numeric_factor = as.numeric(pull(create_df, factor_vec))
+```
 
+as.numeric function could change the logical and factor variables into numbers, but it does not work on character vector.
+That could because logical could be saved as "0" and "1" and factor could be saved as ordinal numbers. But character cannot be saved by numbers.
+
+However, when it comes to get the mean, things could be different for factor variables. Because that the ordinal numbers cannot represent the actual meaning of the factor levels, so that we cannot get the mean of a factor by just calculate the relative number of the levels.
+
+
+
+## Problem 2
+
+1. Input data "penguins".
+```{r}
+data("penguins", package = "palmerpenguins")
+```
+
+2. get more knowledge about the dataset.
+```{r}
+names(penguins)
+skimr::skim(penguins)
+nrow(penguins)
+ncol(penguins)
+```
+
+3. get the mean flipper length.
+```{r}
+mean_flipper = mean(pull(penguins, flipper_length_mm), na.rm = TRUE)
+```
+
+4. Make a scatterplot!
+```{r}
+ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) + geom_point()
+```
+
+5. Export my scatterplot
+```{r}
+ggsave("scatterplot.pdf", height = 4, width = 6)
 ```
 
 
