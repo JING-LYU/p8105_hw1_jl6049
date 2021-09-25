@@ -23,6 +23,7 @@ create_df = tibble(
 
 I have created a dataframe with a random sample, a logical vector, a character vector and a factor vector.
 
+
 2. I am trying to take the mean of each variable in your dataframe.
 
 - for the mean of random norm sample.
@@ -53,6 +54,7 @@ mean_factor = mean(pull(create_df, factor_vec))
 
 It does not work.
 
+
 3. I am trying to use as.numeric function on the logical, character, and factor variables.
 ```{r eval = FALSE}
 numeric_logical = as.numeric(pull(create_df, logical_vec))
@@ -77,7 +79,6 @@ data("penguins", package = "palmerpenguins")
 2. get more knowledge about the dataset.
 ```{r}
 names(penguins)
-skimr::skim(penguins)
 nrow(penguins)
 ncol(penguins)
 ```
