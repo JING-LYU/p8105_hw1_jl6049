@@ -10,9 +10,11 @@ output: github_document
 
 1. I am trying to create a dataframe as request.
 
-```{r}
+```{r include = FALSE}
 library(tidyverse)
+```
 
+```{r}
 create_df = tibble(
   norm_samp = rnorm(10),
   logical_vec = norm_samp > 0,
@@ -55,14 +57,14 @@ mean_factor = mean(pull(create_df, factor_vec))
 It does not work.
 
 
-3. I am trying to use as.numeric function on the logical, character, and factor variables.
+3. I am trying to use as.numeric function on the logical, character, and factor variables to convert them to numeric.
 ```{r eval = FALSE}
 numeric_logical = as.numeric(pull(create_df, logical_vec))
 numeric_char = as.numeric(pull(create_df, char_vec))
 numeric_factor = as.numeric(pull(create_df, factor_vec))
 ```
 
-as.numeric function could change the logical and factor variables into numbers, but it does not work on character vector.
+Result: as.numeric function could change the logical and factor variables into numbers, but it does not work on character vector.
 That could because logical could be saved as "0" and "1" and factor could be saved as ordinal numbers. But character cannot be saved by numbers.
 
 However, when it comes to get the mean, things could be different for factor variables. Because that the ordinal numbers cannot represent the actual meaning of the factor levels, so that we cannot get the mean of a factor by just calculate the relative number of the levels.
@@ -77,25 +79,25 @@ data("penguins", package = "palmerpenguins")
 ```
 
 2. get more knowledge about the dataset.
-```{r}
+```{r eval = FALSE}
 names(penguins)
 nrow(penguins)
 ncol(penguins)
-```
-
-3. get the mean flipper length.
-```{r}
 mean_flipper = mean(pull(penguins, flipper_length_mm), na.rm = TRUE)
 ```
 
-4. Make a scatterplot!
-```{r}
+- The dataset contains 8 variables including `r names(penguins)`
+- The dataset has `r nrow(penguins)` rows and `r ncol(penguins)` columns
+- The mean flipper length is `r mean(pull(penguins, flipper_length_mm), na.rm = TRUE)`
+
+3. Make a scatterplot!
+```{r warning = FALSE}
 ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) + geom_point()
 ```
 
-5. Export my scatterplot
-```{r}
-ggsave("scatterplot.pdf", height = 4, width = 6)
+4. Export my scatterplot
+```{r warning = FALSE}
+ggsave("scatterplot.png", height = 4, width = 6)
 ```
 
 
