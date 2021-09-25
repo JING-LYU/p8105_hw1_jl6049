@@ -92,7 +92,7 @@ mean_flipper = mean(pull(penguins, flipper_length_mm), na.rm = TRUE)
 
 3. Make a scatterplot!
 ```{r warning = FALSE}
-ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) + geom_point()
+ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) + geom_point() + labs(x = "Bill Length (mm)" , y = "Flipper Length (mm)")
 ```
 
 4. Export my scatterplot
