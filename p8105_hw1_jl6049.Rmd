@@ -8,7 +8,7 @@ output: github_document
 
 ## Problem 1
 
-1. I am trying to create a dataframe as request.
+**1. I am trying to create a dataframe as request.**
 
 ```{r include = FALSE}
 library(tidyverse)
@@ -26,38 +26,41 @@ create_df = tibble(
 I have created a dataframe with a random sample, a logical vector, a character vector and a factor vector.
 
 
-2. I am trying to take the mean of each variable in your dataframe.
+**2. I am trying to take the mean of each variable in your dataframe.**
 
 - for the mean of random norm sample.
 ```{r}
 mean_norm = mean(pull(create_df, norm_samp))
 ```
 
-It works! It is `r mean_norm`
+---It works! It is `r mean_norm`
 
-- for the mean of logical vector.
+
+- For the mean of logical vector.
 ```{r}
 mean_log = mean(pull(create_df, logical_vec))
 ```
 
-It works! It is `r mean_log`
+---It works! It is `r mean_log`
 
-- for the mean of character vector.
+
+- For the mean of character vector.
 ```{r}
 mean_char = mean(pull(create_df, char_vec))
 ```
 
-It does not work.
+---It does not work.
 
-- for the mean of factor vector.
+
+- For the mean of factor vector.
 ```{r}
 mean_factor = mean(pull(create_df, factor_vec))
 ```
 
-It does not work.
+---It does not work.
 
 
-3. I am trying to use as.numeric function on the logical, character, and factor variables to convert them to numeric.
+**3. I am trying to use as.numeric function on the logical, character, and factor variables to convert them to numeric.**
 ```{r eval = FALSE}
 numeric_logical = as.numeric(pull(create_df, logical_vec))
 numeric_char = as.numeric(pull(create_df, char_vec))
@@ -73,29 +76,32 @@ However, when it comes to get the mean, things could be different for factor var
 
 ## Problem 2
 
-1. Input data "penguins".
+**1. Input data "penguins".**
 ```{r}
 data("penguins", package = "palmerpenguins")
 ```
 
-2. get more knowledge about the dataset.
+**2. get more knowledge about the dataset.**
 ```{r eval = FALSE}
 names(penguins)
+skimr::skim(penguins)
 nrow(penguins)
 ncol(penguins)
 mean_flipper = mean(pull(penguins, flipper_length_mm), na.rm = TRUE)
 ```
 
 - The dataset contains 8 variables including `r names(penguins)`
+- The values of variables could be observed as follows:
+`r  skimr::skim(penguins)`
 - The dataset has `r nrow(penguins)` rows and `r ncol(penguins)` columns
 - The mean flipper length is `r mean(pull(penguins, flipper_length_mm), na.rm = TRUE)`
 
-3. Make a scatterplot!
+**3. Make a scatterplot!**
 ```{r warning = FALSE}
 ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) + geom_point() + labs(x = "Bill Length (mm)" , y = "Flipper Length (mm)")
 ```
 
-4. Export my scatterplot
+**4. Export my scatterplot**
 ```{r warning = FALSE}
 ggsave("scatterplot.png", height = 4, width = 6)
 ```
